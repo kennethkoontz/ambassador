@@ -1,12 +1,7 @@
 var referrals = angular.module('referrals', [])
 
-var ManagerCtrl = function($scope) {
+var ManagerCtrl = function($scope, $http) {
   $scope.newReferralTitle = ''
-  // TODO: When server data model is made, remove this and user server
-  $scope.referrals = [ { title: 'poseidon', clicks: 0 }
-                     , { title: 'ares', clicks: 0 }
-                     , { title: 'zeus', clicks: 0 }
-                     ]
 
   $scope.add = function() {
     var referral = { title: $scope.newReferralTitle
@@ -37,4 +32,13 @@ var ManagerCtrl = function($scope) {
       }
     }
   }
+
+  $http({
+    method: 'GET',
+    url: "/referrals"
+  }).success(function(data, status) {
+    $scope.referrals = data
+  }).error(function(data, status) {
+    console.log('something went wrong with fetching the server data')
+  })
 }
