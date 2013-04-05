@@ -13,7 +13,7 @@ exports.landing = function(req, res) {
     , update = { $inc: { clicks: 1 } }
 
   db.update('referrals', query, update, function(error, result) {
-    if (error) return cb(error)
+    if (error) return res.send(404)
 
     res.render('referrals/landing', { linkTitle: linkTitle })
   })
