@@ -8,7 +8,16 @@ var ManagerCtrl = function($scope, $http) {
                    , clicks: 0
                    }
 
-    $scope.referrals.push(referral)
+    $http({
+      method: 'POST',
+      url: "/referrals",
+      data: referral
+    }).success(function(data, status) {
+      $scope.referrals.push(referral)
+    }).error(function(data, status) {
+      console.log('something went wrong creating a referral link')
+    })
+
     $scope.newReferralTitle = ''
   }
 

@@ -28,3 +28,13 @@ exports.show = function(req, res) {
     res.send(result)
   })
 }
+
+exports.create = function(req, res) {
+  var create = req.body
+ 
+  db.create('referrals', create, function(error, result) {
+    if (error) return res.send(404)
+
+    res.send(result)
+  })
+}

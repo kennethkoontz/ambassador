@@ -21,6 +21,7 @@ app.get('/landing', referrals.landing)
 
 // client side endpoints
 app.get('/referrals', referrals.show)
+app.post('/referrals', referrals.create)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'))
