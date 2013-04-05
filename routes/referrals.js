@@ -29,6 +29,18 @@ exports.show = function(req, res) {
   })
 }
 
+exports.delete = function(req, res) {
+  var remove = req.body
+
+  console.log(remove)
+ 
+  db.remove('referrals', remove, function(error, result) {
+    if (error) return res.send(404)
+
+    res.send(result)
+  })
+}
+
 exports.create = function(req, res) {
   var create = req.body
  

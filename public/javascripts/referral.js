@@ -27,11 +27,24 @@ var ManagerCtrl = function($scope, $http) {
   }
 
   $scope.delete = function() {
-    for (var i in $scope.referrals) {
-      if ($scope.referrals[i].title === $scope.currentLink.title) {
-        return $scope.referrals.splice(i, 1)
+    var referral = { title: $scope.currentLink.title }
+
+    console.log(referral)
+                   
+    $http({
+      method: 'POST',
+      url: '/referrals/delete',
+      data: referral
+    }).success(function(data, status) {
+      $scope.referrals = data
+      for (var i in $scope.referrals) {
+        if ($scope.referrals[i].title === $scope.currentLink.title) {
+          return $scope.referrals.splice(i, 1)
+        }
       }
-    }
+    }).error(function(data, status) {
+      console.log('something went wrong with fetching the server data')
+    })
   }
 
   $scope.edit = function() {
