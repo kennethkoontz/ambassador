@@ -36,7 +36,6 @@ var ManagerCtrl = function($scope, $http) {
     }).success(function(data, status) {
       for (var i in $scope.referrals) {
         if ($scope.referrals[i].title === $scope.currentLink.title) {
-          console.log(i, $scope.referrals)
           return $scope.referrals.splice(i, 1)
         }
       }
@@ -46,11 +45,23 @@ var ManagerCtrl = function($scope, $http) {
   }
 
   $scope.edit = function() {
-    for (var i in $scope.referrals) {
-      if ($scope.referrals[i].title === $scope.currentLink.title) {
-        return $scope.referrals[i].title = $scope.newTitle
+    var update = { old: $scope.currentLink
+                 , updated: { title: $scope.newTitle }
+                 }
+
+    $http({
+      method: 'POST',
+      url: '/referrals/update',
+      data: update
+    }).success(function(data, status) {
+      for (var i in $scope.referrals) {
+        if ($scope.referrals[i].title === $scope.currentLink.title) {
+          return $scope.referrals[i].title = $scope.newTitle
+        }
       }
-    }
+    }).error(function(data, status) {
+      console.log('something went wrong updating referral link')
+    })
   }
 
   $http({

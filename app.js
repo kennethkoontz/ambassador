@@ -23,6 +23,7 @@ app.get('/landing', referrals.landing)
 app.get('/referrals', referrals.show)
 app.post('/referrals', referrals.create)
 app.post('/referrals/delete', referrals.delete)
+app.post('/referrals/update', referrals.update)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'))

@@ -19,7 +19,6 @@ exports.landing = function(req, res) {
   })
 }
 
-
 // client side endpoints
 exports.show = function(req, res) {
   db.read('referrals', {}, function(error, result) {
@@ -35,7 +34,18 @@ exports.delete = function(req, res) {
   db.remove('referrals', remove, function(error, result) {
     if (error) return res.send(404)
 
-    res.send(result)
+    res.send(200)
+  })
+}
+
+exports.update = function(req, res) {
+  var query = { title: req.body.old.title }
+    , update = { $set: { title: req.body.updated.title }}
+
+  db.update('referrals', query, update, function(error, result) {
+    if (error) return res.send(404)
+
+    res.send(200)
   })
 }
 
@@ -45,6 +55,6 @@ exports.create = function(req, res) {
   db.create('referrals', create, function(error, result) {
     if (error) return res.send(404)
 
-    res.send(result)
+    res.send(200)
   })
 }
