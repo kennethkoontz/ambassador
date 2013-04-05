@@ -28,17 +28,15 @@ var ManagerCtrl = function($scope, $http) {
 
   $scope.delete = function() {
     var referral = { title: $scope.currentLink.title }
-
-    console.log(referral)
                    
     $http({
       method: 'POST',
       url: '/referrals/delete',
       data: referral
     }).success(function(data, status) {
-      $scope.referrals = data
       for (var i in $scope.referrals) {
         if ($scope.referrals[i].title === $scope.currentLink.title) {
+          console.log(i, $scope.referrals)
           return $scope.referrals.splice(i, 1)
         }
       }
